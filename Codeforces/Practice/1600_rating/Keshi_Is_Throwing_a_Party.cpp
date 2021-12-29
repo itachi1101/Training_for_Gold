@@ -1,3 +1,4 @@
+// Keshi_Is_Throwing_a_Party
 #include<bits/stdc++.h>
 using namespace std;
 /////////////////////////////////////////////// JAI SHREE RAM /////////////////////////////////////////////////////////////////////
@@ -15,37 +16,43 @@ void fastIO() {ios_base::sync_with_stdio(false); cin.tie(NULL);}
 string yes = "YES";
 string no = "NO";
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// this is pretty much same as gcd using euclid
+bool check(int people, vector<pair<int, pair<int, int>>>&v) {
+	int cnt = 0, n = v.size();
+	for (int i = 0; i < n; i++) {
+		if (people - 1 - v[i].second.second <= cnt && cnt <= v[i].second.first)
+			cnt++;
+	}
 
+
+	return cnt >= people;
+}
 void JaiShreeRam() {
 //write your code here
-	int test;
-	cin >> test;
+	int test; cin >> test;
 	while (test--) {
-		ll a, b, x;
-		cin >> a >> b >> x;
-		bool ok = true;
-		if (a > b)
-			swap(a, b);
-		while (a) {
-			if (x == a or x == b)
-			{
-				cout << yes << endl;
-				ok = false;
-				break;
-			}
-			if (x > a && x < b && x % a == b % a) {
-				cout << yes << endl;
-				ok = false;
-				break;
-			}
-
-
-			b = b % a;
-			swap(a, b);
+		int n; cin >> n;
+		vector<pair<int, pair<int, int>>>v(n);
+		for (int i = 0; i < n; i++) {
+			cin >> v[i].second.second >> v[i].second.first;
+			v[i].first = i + 1;
 		}
-		if (ok)
-			cout << no << endl;
+		// for (auto child : v) {
+		// 	cout << child.first << " " << child.second.first << " " << child.second.second;
+		// 	cout << endl;
+		// }
+		int low = 1, high = n;
+		int ans = INT_MIN;
+		while (low <= high) {
+			int mid = low + (high - low) / 2;
+			if (check(mid, v)) {
+				ans = max(ans, mid);
+				low = mid + 1;
+			}
+			else high = mid - 1;
+		}
+		cout << ans << endl;
+
+
 	}
 }
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
