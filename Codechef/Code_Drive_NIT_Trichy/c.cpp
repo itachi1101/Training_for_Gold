@@ -15,111 +15,38 @@ void fastIO() {ios_base::sync_with_stdio(false); cin.tie(NULL);}
 string yes = "YES";
 string no = "NO";
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const ll n = 40000;
-bool prime[n + 1], primesquare[n * n + 1];
-ll a[n]; // for storing primes upto n
-void SieveOfEratosthenes()
-{
-
-
-	for (ll i = 2; i <= n; i++)
-		prime[i] = true;
-
-
-	for (ll i = 0; i <= (n * n + 1); i++)
-		primesquare[i] = false;
-
-
-	prime[1] = false;
-
-	for (ll p = 2; p * p <= n; p++) {
-
-
-		if (prime[p] == true) {
-
-			for (ll i = p * p; i <= n; i += p)
-				prime[i] = false;
-		}
-	}
-
-	ll j = 0;
-	for (ll p = 2; p <= n; p++) {
-		if (prime[p]) {
-
-			a[j] = p;
-
-			primesquare[p * p] = true;
-			j++;
-		}
-	}
-}
-
-
-ll countDivisors(ll n)
-{
-
-	if (n == 1)
-		return 1;
-
-	ll ans = 1;
-
-	for (ll i = 0;; i++) {
-
-		if (a[i] * a[i] * a[i] > n)
-			break;
-
-		ll cnt = 1; // cnt is power of prime a[i] in n.
-		while (n % a[i] == 0) // if a[i] is a factor of n
-		{
-			n = n / a[i];
-			cnt = cnt + 1; // incrementing power
-		}
-
-		ans = ans * cnt;
-	}
-
-
-	if (prime[n])
-		ans = ans * 2;
-
-
-	else if (primesquare[n])
-		ans = ans * 3;
-
-
-	else if (n != 1)
-		ans = ans * 4;
-
-	return ans;
-}
+// n = (a^p) * (b^q) * (c^r)...
+//     number of factors of a number =  (p + 1) * (q + 1) * (r + 1)...
+//                                      504 == = (2 ^ 3) * (3 ^ 2) * 7
+//                                              number of factors == ==  (3 + 1) * (2 + 1) * (1 + 1)
+//                                              4 * 3 * 2
+//                                              now we can see that if we just divide 504 by 2 it is divisible
+//                                              so if we remove one 2 from the count of factors of 504 then we will get the max factors
 
 void JaiShreeRam() {
 //write your code here
-	ll test;
+	int test;
 	cin >> test;
-	SieveOfEratosthenes();
-	vector<ll>top(31270);
-	for (ll i = 2; i <= 31255; i++) {
-		ll res = countDivisors(i);
-		top[i] = res;
-	}
-
 	while (test--) {
 		ll n; cin >> n;
-		ll k = LLONG_MAX, cnt = 0;
-		for (ll i = 2; i * i <= n; i += 1LL) {
-			if (n % i == 0) {
-				ll res = countDivisors(i);
-				if (res > cnt) {
-					cnt = res;
-					k = i;
+		ll max_pow = 0, min_pf = 1e9;
+		for (ll pf = 2; pf * pf <= n; pf++) {
+			if (n % pf == 0) {
+				ll pow = 0;
+				while (n % pf == 0) {
+					n /= pf;
+					pow++;
+				}
+				if (pow > max_pow)
+				{
+					max_pow = pow;
+					min_pf = pf;
 				}
 			}
 		}
-		if (k == LLONG_MAX)
-			cout << n << endl;
-		else
-			cout << k << endl;
+		if (min_pf == 1e9)
+			min_pf = n;
+		cout << min_pf << endl;
 	}
 }
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -17,25 +17,24 @@ string no = "NO";
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void JaiShreeRam() {
 //write your code here
-	int test;
-	cin >> test;
+	int test; cin >> test;
 	while (test--) {
 		int n, k; cin >> n >> k;
-		ll ans = 0, temp;
 		string str; cin >> str;
-		temp = str[0] - '0';
-		for (int i = 1; i < n - k + 1; i++) {
-			temp ^= (str[i] - '0');
-		}
-		if (temp == 1)
+		int ans = 0, xo = 0;
+		for (int i = 0; i <= n - k; i++)
+			xo ^= (str[i] - '0');
+		if (xo == 1)
 			ans++;
-		for (int i = n - k + 1; i < n; i++) {
-			temp ^= (str[i] - '0');
-			temp ^= (str[i - n + k - 1] - '0');
-			if (temp == 1)
+		int left = 0, right = n - k + 1;
+		while (right < n) {
+			xo ^= (str[left++] - '0');
+			xo ^= (str[right++] - '0');
+			if (xo == 1)
 				ans++;
 		}
 		cout << ans << endl;
+
 
 	}
 }
