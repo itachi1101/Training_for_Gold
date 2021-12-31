@@ -1,33 +1,35 @@
 #include<bits/stdc++.h>
+
 using namespace std;
-void fastIO() {ios_base::sync_with_stdio(false); cin.tie(NULL);}
+
 int main() {
-	fastIO();
-	int test;
-	cin >> test;
-	for (int t = 0; t < test; t++) {
-		int n; cin >> n;
-		vector<int>v(n);
-		for (auto&x : v)cin >> x;
-		if (n < 3)
-			cout << 0 << endl;
-		else {
-			int res = v.size();
-			for (int i = 0; i < v.size() - 1; i++) {
-				for (int j = i + 1; j < v.size(); j++) {
-					double change = (double)(v[j] - v[i]) / (j - i);
-					int temp = 0;
-					for (int k = 0; k < v.size(); k++) {
-						if (k != i) {
-							if ((v[k] + change * (i - k)) != v[i])
-								temp++;
-						}
-					}
-					res = min(res, temp);
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int t;
+	cin >> t;
+	while (t > 0) {
+		t--;
+		int n;
+		cin >> n;
+		vector<long long> a(n);
+		for (auto &nx : a) {cin >> nx;}
+		if (n == 1) {cout << "0\n"; continue;}
+		long long res = n - 1;
+		for (long long i = 0; i < n; i++) {
+			for (long long j = i + 1; j < n; j++) {
+				vector<long long> cur = a;
+
+				for (auto &nx : cur) {nx *= (j - i);}
+				long long step = (cur[j] - cur[i]) / (j - i);
+				long long start = cur[i] - step * i;
+				long long cop = 0;
+				for (long long k = 0; k < n; k++) {
+					if ((start + step * k) != cur[k]) {cop++;}
 				}
+				res = min(res, cop);
 			}
-			cout << res << endl;
 		}
+		cout << res << '\n';
 	}
 	return 0;
 }
