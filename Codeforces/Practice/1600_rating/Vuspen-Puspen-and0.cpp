@@ -20,19 +20,39 @@ void JaiShreeRam() {
 	int test;
 	cin >> test;
 	while (test--) {
-		ll x, y;
-		cin >> x >> y;
-		if (y % x == 0) {
-			cout << x << endl;
-		}
-		else if (x > y)
-			cout << (x + y) << endl;
-		else if (x == y) {
-			cout << x << endl;
+		int n; cin >> n;
+		vector<ll>v(n);
+		for (auto&x : v)cin >> x;
+		vector<ll>ans(n);
+		if (n & 1) {
+			if (v[0] + v[1] != 0) {
+				cout << -v[2] << " " << -v[2] << " " << v[0] + v[1] << endl;
+			}
+			else if (v[1] + v[2] != 0) {
+				cout << v[2] + v[1] << " " << -v[0] << " " << -v[0] << endl;
+			}
+			else {
+				cout << -v[1] << " " << v[0] + v[2] << " " << -v[1] << endl;
+			}
+			for (int i = 3; i < n; i += 2) {
+
+				ans[i] = -v[i + 1];
+				ans[i + 1] = v[i];
+			}
+
+			for (int i = 3; i < n; i++)
+				cout << ans[i] << " ";
+			cout << endl;
 		}
 		else {
-			ll val = y / x;
-			cout << (((x * val) + y) / 2) << endl;
+
+			for (int i = 0; i < n; i += 2) {
+				ans[i] = -v[i + 1];
+				ans[i + 1] = v[i];
+			}
+			for (int i = 0; i < n; i++)
+				cout << ans[i] << " ";
+			cout << endl;
 		}
 
 	}
