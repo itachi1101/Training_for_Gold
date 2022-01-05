@@ -2,12 +2,11 @@
 using namespace std;
 /////////////////////////////////////////////// JAI SHREE RAM /////////////////////////////////////////////////////////////////////
 #define mem(x, y)                   memset(x,y,sizeof(x))
-#define pb                          push_back
-#define all(a)                      (a).begin(), (a).end()
-#define make_a_pair                 array
-#define all_r(a)                    (a).rbegin(), (a).rend()
-#define sz(x)                       (int)(x.size())
-#define endl                        '\n'
+#define pb                         push_back
+#define all(a)                     (a).begin(), (a).end()
+#define all_r(a)                   (a).rbegin(), (a).rend()
+#define sz(x)                      (int)(x.size())
+#define endl                       '\n'
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
@@ -21,29 +20,22 @@ void JaiShreeRam() {
 	int test;
 	cin >> test;
 	while (test--) {
-		int n; cin >> n;
-		int minL, maxR, valL = 0, valR = 0, maxn = 0, minval = 0;
-		for (int i = 1; i <= n; i++) {
-			int l, r, c; cin >> l >> r >> c;
-			if (i == 1) {
-				minL = l; maxR = r;
-				valL = valR = c;
-				maxn = r - l + 1;
-				minval = c;
-			} else {
-				if (l < minL) minL = l, valL = c;
-				else if (l == minL) valL = min(valL, c);
-				if (r > maxR) maxR = r, valR = c;
-				else if (r == maxR) valR = min(valR, c);
-				if (r - l + 1 > maxn) {
-					maxn = r - l + 1;
-					minval = c;
-				} else if (r - l + 1 == maxn) minval = min(minval, c);
+		ll n; cin >> n;
+		vector<ll>v(n);
+		for (auto&x : v)cin >> x;
+		ll ans = 0, p = 1, cnt = 0;
+		for (int bit = 0; bit <= 31; bit++) {
+			cnt = 0;
+			for (int i = 0; i < n; i++) {
+				if (v[i] % 2 == 1)
+					cnt++;
+				v[i] /= 2;
 			}
-			int ans = valL + valR;
-			if (maxR - minL + 1 == maxn) ans = min(ans, minval);
-			cout << ans << endl;
+			if (cnt > 1)
+				ans += p;
+			p *= 2LL;
 		}
+		cout << ans << endl;
 	}
 }
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

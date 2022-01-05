@@ -2,12 +2,11 @@
 using namespace std;
 /////////////////////////////////////////////// JAI SHREE RAM /////////////////////////////////////////////////////////////////////
 #define mem(x, y)                   memset(x,y,sizeof(x))
-#define pb                          push_back
-#define all(a)                      (a).begin(), (a).end()
-#define make_a_pair                 array
-#define all_r(a)                    (a).rbegin(), (a).rend()
-#define sz(x)                       (int)(x.size())
-#define endl                        '\n'
+#define pb                         push_back
+#define all(a)                     (a).begin(), (a).end()
+#define all_r(a)                   (a).rbegin(), (a).rend()
+#define sz(x)                      (int)(x.size())
+#define endl                       '\n'
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
@@ -18,33 +17,35 @@ string no = "NO";
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void JaiShreeRam() {
 //write your code here
-	int test;
-	cin >> test;
-	while (test--) {
-		int n; cin >> n;
-		int minL, maxR, valL = 0, valR = 0, maxn = 0, minval = 0;
-		for (int i = 1; i <= n; i++) {
-			int l, r, c; cin >> l >> r >> c;
-			if (i == 1) {
-				minL = l; maxR = r;
-				valL = valR = c;
-				maxn = r - l + 1;
-				minval = c;
-			} else {
-				if (l < minL) minL = l, valL = c;
-				else if (l == minL) valL = min(valL, c);
-				if (r > maxR) maxR = r, valR = c;
-				else if (r == maxR) valR = min(valR, c);
-				if (r - l + 1 > maxn) {
-					maxn = r - l + 1;
-					minval = c;
-				} else if (r - l + 1 == maxn) minval = min(minval, c);
-			}
-			int ans = valL + valR;
-			if (maxR - minL + 1 == maxn) ans = min(ans, minval);
-			cout << ans << endl;
+	int n, k;
+	cin >> n >> k;
+	set<string>st;
+	string ans;
+	ans.push_back('a');
+	int j = 0;
+	for (int x = 1; x <= n - 1; x++) {
+		if ((x + 1) % k == 0 && (x + 1) != k)
+			j += 1;
+		for (char i = 'a' + (j % k); i < 'a' + k; i++) {
+			string check;
+			check.push_back(ans.back());
+			check.push_back(i);
+			if (st.find(check) != st.end())continue;
+			ans.push_back(i);
+			st.insert(check);
+			break;
 		}
 	}
+	int m = 0;
+	while (ans.size() < n) {
+		int t = k;
+		while (ans.size() < n && t > 0) {
+			ans.push_back('a' + (m % k));
+			t--;
+		}
+		m += 1;
+	}
+	cout << ans << endl;
 }
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main() {

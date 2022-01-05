@@ -2,12 +2,11 @@
 using namespace std;
 /////////////////////////////////////////////// JAI SHREE RAM /////////////////////////////////////////////////////////////////////
 #define mem(x, y)                   memset(x,y,sizeof(x))
-#define pb                          push_back
-#define all(a)                      (a).begin(), (a).end()
-#define make_a_pair                 array
-#define all_r(a)                    (a).rbegin(), (a).rend()
-#define sz(x)                       (int)(x.size())
-#define endl                        '\n'
+#define pb                         push_back
+#define all(a)                     (a).begin(), (a).end()
+#define all_r(a)                   (a).rbegin(), (a).rend()
+#define sz(x)                      (int)(x.size())
+#define endl                       '\n'
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
@@ -18,31 +17,28 @@ string no = "NO";
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void JaiShreeRam() {
 //write your code here
-	int test;
-	cin >> test;
-	while (test--) {
-		int n; cin >> n;
-		int minL, maxR, valL = 0, valR = 0, maxn = 0, minval = 0;
-		for (int i = 1; i <= n; i++) {
-			int l, r, c; cin >> l >> r >> c;
-			if (i == 1) {
-				minL = l; maxR = r;
-				valL = valR = c;
-				maxn = r - l + 1;
-				minval = c;
-			} else {
-				if (l < minL) minL = l, valL = c;
-				else if (l == minL) valL = min(valL, c);
-				if (r > maxR) maxR = r, valR = c;
-				else if (r == maxR) valR = min(valR, c);
-				if (r - l + 1 > maxn) {
-					maxn = r - l + 1;
-					minval = c;
-				} else if (r - l + 1 == maxn) minval = min(minval, c);
+	int n, m; cin >> n >> m;
+	vector<vector<char>>v(n, vector<char>(m));
+	int x = -1, y = -1;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++) {
+			cin >> v[i][j];
+			if (v[i][j] == 'A') {
+				x = i, y = j;
 			}
-			int ans = valL + valR;
-			if (maxR - minL + 1 == maxn) ans = min(ans, minval);
-			cout << ans << endl;
+		}
+
+	vector<vector<bool>>visited(n, vector<bool>(m, false));
+	queue<array<int, 2>>q;
+	vector<int>d(n), p(n);
+	q.push({x, y});
+	while (!q.empty()) {
+		int currX = q.front()[0];
+		int currY = q.front()[1];
+		q.pop();
+		visited[currX][currY] = true;
+		for (int i = 0; i < 4; i++) {
+
 		}
 	}
 }
