@@ -21,7 +21,28 @@ void JaiShreeRam() {
 	cin >> test;
 	while (test--) {
 		int n, x; cin >> n >> x;
-
+		if (n == 1) {
+			cout << x << endl;
+			continue;
+		}
+		vector<int>ans(n);
+		int temp = 0;
+		for (int i = 0; i < n - 1; i++) {
+			ans[i] = i;
+			temp ^= ans[i];
+		}
+		int last = x ^ temp;
+		int set_18 = (1LL << 18);
+		if (last >= (n - 1) && last <= 500000) {
+			ans[n - 1] = last;
+		}
+		else {
+			ans[n - 1] = last ^ set_18;
+			if ((ans[0]^set_18) == ans[n - 1])ans[1] ^= set_18;
+			else ans[0] ^= set_18;
+		}
+		for (auto x : ans)cout << x << " ";
+		cout << endl;
 	}
 }
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
