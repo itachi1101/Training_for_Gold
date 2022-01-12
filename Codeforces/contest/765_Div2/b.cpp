@@ -17,20 +17,24 @@ string no = "NO";
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void JaiShreeRam() {
 //write your code here
-	ll k; cin >> k;
-	string str;
-	while (k > 0) {
-		str.push_back('0' + (k % 2));
-		k /= 2;
+	int test;
+	cin >> test;
+	while (test--) {
+		ll n;
+		vector<ll>v(n);
+		ll ans = -1;
+		cin >> n;
+		vector<ll>store[150001];
+		for (int i = 0; i < n; i++)
+			cin >> v[i];
+		for (ll i = 0; i < n; i++) {
+			if (store[v[i]].size() > 0)
+				ans = max(ans, (n - i) + store[v[i]][0]);
+			else
+				store[v[i]].push_back(i);
+		}
+		cout << ans << endl;
 	}
-	reverse(all(str));
-	for (auto child : str) {
-		if (child == '1')
-			cout << '2';
-		else cout << '0';
-
-	}
-
 }
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main() {

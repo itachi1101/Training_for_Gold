@@ -15,21 +15,30 @@ void fastIO() {ios_base::sync_with_stdio(false); cin.tie(NULL);}
 string yes = "YES";
 string no = "NO";
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+set<ll>generate() {
+	set<ll>res;
+	for (int start = 1; start <= 9; start++) {
+		for (int commonDifference = -9; commonDifference <= 8; commonDifference++) {
+			string s;
+			int digit = start;
+			for (int i = 0; i < 18; i++) {
+				s.push_back(digit + '0');
+				res.insert(stoll(s));
+				digit += commonDifference;
+				if (!(0 <= digit  && digit <= 9))break;
+			}
+
+		}
+	}
+	return res;
+}
+
 void JaiShreeRam() {
 //write your code here
-	ll k; cin >> k;
-	string str;
-	while (k > 0) {
-		str.push_back('0' + (k % 2));
-		k /= 2;
-	}
-	reverse(all(str));
-	for (auto child : str) {
-		if (child == '1')
-			cout << '2';
-		else cout << '0';
-
-	}
+	ll n;
+	cin >> n;
+	set<long long>store = generate();
+	cout << (*store.lower_bound(n)) << endl;
 
 }
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
