@@ -13,8 +13,6 @@ const int mod = 1e9 + 7;
 #define sz(x)                      (int)(x.size())
 #define endl                       '\n'
 #define mxn                         200005
-#define ff                          first
-#define ss                          second
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
@@ -162,67 +160,47 @@ void prime() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool check(ll given, vector<pair<ll, ll>>&v) {
 
-	ll curr = 0;
-	ll used = 0;
-	for (int i = 0; i < v.size(); i++) {
-		if (used > given) {
-			return false;
-		}
-		if (v[i].ss == 1) {
-			used += 1;
-			curr = 2;
-		}
-		else {
-			if (v[i].ss < curr) {
-				if (v[i].ff - v[i - 1].ff >= v[i].ss) {
-					used += (v[i].ss * (v[i].ss + 1LL)) / 2LL;
-					curr = v[i].ss + 1;
-				}
-				else {
-					ll number_of_terms = (v[i].ff - v[i - 1].ff);
-					used += ((number_of_terms) * (2 * curr + (number_of_terms - 1))) / 2LL;
-					curr += (number_of_terms + 1);
-				}
-			}
-			else {
-
-			}
-		}
-	}
-	return true;
-}
 
 void JaiShreeRam() {
 //write your code here
 	int test;
 	cin >> test;
 	while (test--) {
-		int n;
-		cin >> n;
-		vector<pair<ll, ll>>v(n);
-		for (int i = 0; i < n; i++)
-			cin >> v[i].ff;
-		for (int i = 0; i < n; i++)
-			cin >> v[i].ss;
-
-		sort(all(v));
-		ll low = 1, high = 1e18;
-		ll ans = LLONG_MAX;
-		while (low < high) {
-			ll mid = (low + high) / 2LL;
-			if (check(mid, v)) {
-				ans = min(ans, mid);
-				high = mid - 1;
-			}
-			else {
-				low = mid + 1;
-			}
+		int n; cin >> n;
+		vector<int>v(n);
+		for (int i = 0; i < n; i++) {
+			cin >> v[i];
 		}
-		cout << ans << endl;
-	}
+		vector<int>freq(n + 1);
+		for (int i = 0; i < n; i++)
+			freq[v[i]]++;
+		int i = 0;
+		vector<int>ans;
+		while (i < n) {
+			int mex = 0;
+			while (freq[mex] > 0)
+				mex += 1;
 
+			vector<bool>visited(mex);
+			int found = 0;
+			while (i < n) {
+				if (v[i] < mex && !visited[v[i]]) {
+					visited[v[i]] = true;
+					found += 1;
+				}
+				freq[v[i]] -= 1;
+				i += 1;
+				if (found == mex)
+					break;
+			}
+			ans.pb(mex);
+		}
+		cout << ans.size() << endl;
+		for (auto child : ans)
+			cout << child << " ";
+		cout << endl;
+	}
 }
 
 //////////////////////////////////////////////JAI SHREE RAM /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
