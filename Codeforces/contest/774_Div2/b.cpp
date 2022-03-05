@@ -15,18 +15,26 @@ int main() {
 	int test;
 	cin >> test;
 	while (test--) {
-		int n; cin >> n;
-		int msb = 30;
-		for (; msb >= 0; msb--)
-			if ((n - 1) & (1 << msb))
-				break;
-		int t = (1 << msb) - 1;
-		for (int i = n - 1; i > t; i--)
-			cout << i << " ";
-		for (int i = 0; i <= t; i++)
-			cout << i << " ";
-		cout << endl;
+		int n;
+		cin >> n;
+		vector<ll>v(n);
+		for (int i = 0; i < n; i++)
+			cin >> v[i];
+		sort(all(v));
+		ll red = v.back();
+		ll blue = v[0] + v[1];
 
+		int i = 2, j = n - 2;
+		while (i < j) {
+			red += v[j];
+			blue += v[i];
+			j--, i++;
+		}
+		if (red > blue) {
+			cout << "yes" << endl;
+
+		}
+		else cout << "no" << endl;
 	}
 	return 0;
 }

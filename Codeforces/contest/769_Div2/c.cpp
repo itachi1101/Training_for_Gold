@@ -33,7 +33,8 @@ int main() {
 					}
 				}
 			}
-			ans = min(ans, a1 + (a1 | b1) + (1 - a - b));
+			ans = min(ans, a1 + (a1
+			                     | b1) + (1 - a - b));
 		}
 		cout << ans << endl;
 

@@ -15,18 +15,22 @@ int main() {
 	int test;
 	cin >> test;
 	while (test--) {
-		int n; cin >> n;
-		int msb = 30;
-		for (; msb >= 0; msb--)
-			if ((n - 1) & (1 << msb))
-				break;
-		int t = (1 << msb) - 1;
-		for (int i = n - 1; i > t; i--)
-			cout << i << " ";
-		for (int i = 0; i <= t; i++)
-			cout << i << " ";
-		cout << endl;
-
+		long long n; cin >> n;
+		if (n % 7 == 0) {
+			cout << n << endl;
+		}
+		else {
+			n /= 10;
+			n *= 10;
+			for (int i = 0; i <= 9; i++) {
+				n += i;
+				if (n % 7 == 0) {
+					cout << n << endl;
+					break;
+				}
+				n -= i;
+			}
+		}
 	}
 	return 0;
 }
